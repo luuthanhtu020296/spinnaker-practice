@@ -9,7 +9,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docke
 sudo apt update -y
 sudo apt install -y docker-ce
 sudo usermod -aG docker ${USER}
-
+sudo chmod 777 /var/run/docker.sock
 # install kubenetenes
 
 sudo su -
