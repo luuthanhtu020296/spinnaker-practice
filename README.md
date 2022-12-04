@@ -11,4 +11,5 @@ https://devopscube.com/setup-kubernetes-cluster-kubeadm/
 Ubuntu 20.x
 
 export ACCESS_KEY=xxxxxxxxxxxxxxxx
+
 export SECRET_KEY=xxxxxxxxxxxxxxxxxxxx
