@@ -35,3 +35,28 @@ hal config version edit --version $VERSION
 sudo chmod 777 /home/spinnaker/.kube/config
 hal -l DEBUG deploy apply
 # eksctl delete cluster --name eks-spinnaker
+export NAMESPACE=spinnaker
+# Expose Gate and Deck
+kubectl -n ${NAMESPACE} expose service spin-gate --type LoadBalancer \
+  --port 80 --target-port 8084 --name spin-gate-public
+
+kubectl -n ${NAMESPACE} expose service spin-deck --type LoadBalancer \
+  --port 80 --target-port 9000 --name spin-deck-public
+
+export API_URL=$(kubectl -n $NAMESPACE get svc spin-gate-public \
+ -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+export UI_URL=$(kubectl -n $NAMESPACE get svc spin-deck-public \
+ -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
+# Configure the URL for Gate
+hal config security api edit --override-base-url http://${API_URL}
+
+# Configure the URL for Deck
+hal config security ui edit --override-base-url http://${UI_URL}
+
+# Apply your changes to Spinnaker
+hal deploy apply
+kubectl -n $NAMESPACE get svc spin-deck-public -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
+
+
