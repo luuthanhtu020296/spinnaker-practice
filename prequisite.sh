@@ -1,6 +1,5 @@
 #!/bin/bash#
 
-sudo -su
 export HOME=/home/spinnaker
 # install docker
 
@@ -40,9 +39,9 @@ sudo bash InstallHalyard.sh
 
 
 #create namespace
-sudo aws configure set aws_access_key_id $ACCESS_KEY
-sudo aws configure set aws_secret_access_key $SECRET_KEY
-sudo aws configure set default.region us-west-2
+aws configure set aws_access_key_id $ACCESS_KEY
+aws configure set aws_secret_access_key $SECRET_KEY
+aws configure set default.region us-west-2
 eksctl create cluster --name=eks-spinnaker --nodes=2 --region=us-west-2 --write-kubeconfig=false
 aws eks update-kubeconfig --name eks-spinnaker --region us-west-2 --alias eks-spinnaker
 kubectl create namespace spinnaker
@@ -66,8 +65,9 @@ hal config storage s3 edit \
  --access-key-id $ACCESS_KEY \
  --secret-access-key $SECRET_KEY --region us-west-2
 hal config storage edit --type s3
-export VERSION=1.19.2
+export VERSION=1.29.0
 hal config version edit --version $VERSION
+sudo chmod 777 /home/spinnaker/.kube/config
 hal -l DEBUG deploy apply
 # eksctl delete cluster --name eks-spinnaker
 
