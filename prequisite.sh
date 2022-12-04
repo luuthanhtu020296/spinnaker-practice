@@ -1,4 +1,4 @@
-#!/bin/bash#
+#! /bin/bash
 
 export HOME=/home/spinnaker
 # install docker
