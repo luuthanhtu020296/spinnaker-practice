@@ -36,9 +36,9 @@ sudo useradd halyard
 
 sudo bash InstallHalyard.sh
 
-sudo chmod 777 /home/spinnaker/
+sudo chmod 777 /home/spinnaker
 
-aws configure set aws_access_key_id $ACCESS_KEY
-aws configure set aws_secret_access_key $SECRET_KEY
-aws configure set default.region us-west-2
+sudo aws configure set aws_access_key_id $ACCESS_KEY
+sudo aws configure set aws_secret_access_key $SECRET_KEY
+sudo aws configure set default.region us-west-2
 
