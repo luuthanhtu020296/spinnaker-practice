@@ -23,3 +23,20 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 sudo apt install -y unzip
 unzip awscliv2.zip
 sudo ./aws/install
+# curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
+# chmod +x ./aws-iam-authenticator
+# mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$HOME/bin:$PATH
+# echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+#install hal
+# Download and configure Halyard
+curl -O https://raw.githubusercontent.com/spinnaker/halyard/master/install/debian/InstallHalyard.sh
+
+sudo useradd halyard
+
+sudo bash InstallHalyard.sh
+
+
+
+#create namespace
+kubectl create namespace spinnaker
+hal config provider kubernetes account add eks-spinnaker --kubeconfig-file "/home/spinnaker/.kube/config" --context $(kubectl config current-context --kubeconfig "/home/spinnaker/.kube/config")
