@@ -30,7 +30,7 @@ hal config storage s3 edit \
  --access-key-id $ACCESS_KEY \
  --secret-access-key $SECRET_KEY --region us-west-2
 hal config storage edit --type s3
-export VERSION=1.29.0
+export VERSION=1.29.1
 hal config version edit --version $VERSION
 sudo chmod 777 /home/spinnaker/.kube/config
 hal deploy apply
