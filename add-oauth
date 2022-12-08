@@ -9,8 +9,6 @@ echo "Please Enter the github client-secret :"
 read CLIENT_SECRET
 echo "Please Enter the provider details (google | github | azure) :"
 read PROVIDER
-echo "Please Enter the REDIRECT_URL"
-read REDIRECT_URL
 
 export MY_IP=$(kubectl -n $NAMESPACE get svc spin-deck-public \
  -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
@@ -35,6 +33,9 @@ if [ -z "${REDIRECT_URI}" ] ; then
   exit
 fi
 
+REDIRECT_URI=$(kubectl -n $NAMESPACE get svc spin-gate-public \
+ -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+
 
 hal config security authn oauth2 edit \
   --client-id $CLIENT_ID \
@@ -42,7 +43,7 @@ hal config security authn oauth2 edit \
   --provider $PROVIDER
 hal config security authn oauth2 enable
 
-hal config security authn oauth2 edit --pre-established-redirect-uri $REDIRECT_URI
+hal config security authn oauth2 edit --pre-established-redirect-uri http://$REDIRECT_URI/login
 
 sudo hal deploy apply
 sleep 10
