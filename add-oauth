@@ -1,0 +1,51 @@
+#! /bin/bash
+
+export HOME=/home/spinnaker
+
+
+echo "Please Enter the github CLIENT_ID :"
+read CLIENT_ID 
+echo "Please Enter the github client-secret :"
+read CLIENT_SECRET
+echo "Please Enter the provider details (google | github | azure) :"
+read PROVIDER
+echo "Please Enter the REDIRECT_URL"
+read REDIRECT_URL
+
+export MY_IP=$(kubectl -n $NAMESPACE get svc spin-deck-public \
+ -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+ 
+ 
+set -e
+
+if [ -z "${CLIENT_ID}" ] ; then
+  echo "CLIENT_ID not set"
+  exit
+fi
+if [ -z "${CLIENT_SECRET}" ] ; then
+  echo "CLIENT_SECRET not set"
+  exit
+fi
+if [ -z "${PROVIDER}" ] ; then
+  echo "PROVIDER not set"
+  exit
+fi
+if [ -z "${REDIRECT_URI}" ] ; then
+  echo "REDIRECT_URI not set"
+  exit
+fi
+
+
+hal config security authn oauth2 edit \
+  --client-id $CLIENT_ID \
+  --client-secret $CLIENT_SECRET \
+  --provider $PROVIDER
+hal config security authn oauth2 enable
+
+hal config security authn oauth2 edit --pre-established-redirect-uri $REDIRECT_URI
+
+sudo hal deploy apply
+sleep 10
+echo ""
+echo "Spinnaker Installed Successfully - Open Browser And Access The Spinnaker"
+echo ""
