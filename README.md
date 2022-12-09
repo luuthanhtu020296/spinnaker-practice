@@ -16,6 +16,11 @@ export ACCESS_KEY=xxxxxxxxxxxxxxxx
 
 export SECRET_KEY=xxxxxxxxxxxxxxxxxxxx
 
+# Installation steps
+
+ 1. Grant permission to these scripts add-oauth.sh, installation.sh, prequisite.sh
+ 2. run prequisite.sh script with ./prequisite.sh
+ 3. run installation.sh script with ./prequisite.sh
 
 # References: 
 
