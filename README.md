@@ -32,3 +32,4 @@ https://devopscube.com/setup-kubernetes-cluster-kubeadm/
 https://www.containiq.com/post/using-kubernetes-with-spinnaker
 https://earthly.dev/blog/spinnaker-kubernetes/?fbclid=IwAR297JyGNW0MJgpbAPxjHTjnylgPmzwuZfbUxn1B6VRfQs46cU9x53PlL8M
 Spinnaker with heml chart: https://aws.amazon.com/blogs/opensource/managing-spinnaker-using-spinnaker-operator-in-amazon-eks/
+https://www.youtube.com/watch?v=9EUyMjR6jSc
